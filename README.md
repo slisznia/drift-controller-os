@@ -1,5 +1,7 @@
 # Drift Controller OS
 
+<img src="assets/driftos-logo.svg" alt="DriftOS logo" width="180" align="right">
+
 **Drift Controller OS** is a lightweight, soft real-time runtime designed to run **Drift** programs directly on microcontroller-class hardware.
 It provides a deterministic execution model for periodic sensor tasks, GPIO control, and small embedded applications — all without relying on raw pointers, POSIX, or a traditional operating system.
 

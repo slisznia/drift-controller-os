@@ -1,0 +1,30 @@
+<svg width="256" height="256" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
+	<title>driftOS – Controller Runtime</title>
+
+	<!-- Top wordmark with exact width -->
+	<!-- moved DOWN from y=124 → y=134 to reduce gap -->
+	<g transform="translate(20,134)">
+		<text x="0" y="0" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="60" font-weight="600" letter-spacing="0.5" fill="#57DC6E" textLength="216" lengthAdjust="spacingAndGlyphs">
+			driftOS
+		</text>
+	</g>
+
+	<!-- CAN bus block -->
+	<g transform="translate(20,156)">
+		<!-- Upper CAN line -->
+		<path d="M 0 0 L 216 0" fill="none" stroke="#57DC6E" stroke-width="4" stroke-linecap="round"></path>
+
+		<!-- Lower CAN line -->
+		<path d="M 0 32 L 216 32" fill="none" stroke="#57DC6E" stroke-width="4" stroke-linecap="round"></path>
+
+		<!-- CAN nodes -->
+		<circle cx="36" cy="0" r="5" fill="#57DC6E"></circle>
+		<circle cx="108" cy="32" r="5" fill="#57DC6E"></circle>
+		<circle cx="180" cy="0" r="5" fill="#57DC6E"></circle>
+
+		<!-- Subtitle -->
+		<text x="0" y="20" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="16" font-weight="500" letter-spacing="0.18em" fill="#57DC6E" textLength="216" lengthAdjust="spacingAndGlyphs">
+			CONTROLLER RUNTIME
+		</text>
+	</g>
+</svg>
