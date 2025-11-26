@@ -2,7 +2,7 @@
 
 <img src="assets/driftos-logo.svg" alt="DriftOS logo" width="225" align="right">
 
-**Drift Controller OS** is a lightweight, soft real-time runtime designed to run **Drift** programs directly on microcontroller-class hardware.
+**Drift Controller OS** is a lightweight, soft real-time runtime designed to run **[Drift](https://github.com/slisznia/drift)** programs directly on microcontroller-class hardware.
 It provides a deterministic execution model for periodic sensor tasks, GPIO control, and small embedded applications — all without relying on raw pointers, POSIX, or a traditional operating system.
 
 This project is not a full kernel. It’s a focused demonstration of **Drift as a systems language**.
@@ -16,7 +16,6 @@ Drift needs a credible “metal-level” showcase:
 * Can Drift run without an OS?
 * Can hardware be accessed safely?
 * Can real-world control logic be implemented deterministically?
-* Can signed modules be loaded and verified at boot?
 * Can exceptions and context-tracked errors work on bare metal?
 
 **Drift Controller OS answers all of that.**
@@ -43,7 +42,7 @@ Written entirely in Drift:
 
 * Cooperative **virtual-thread** executor
 * **sleep_until()** / **yield()** for deterministic timing
-* Static priority scheduler (High / Medium / Low)
+* Fixed-priority scheduler (High / Medium / Low set at task init; no runtime reprioritization)
 * Panic handler with structured `Error` context frames
 * Safe wrappers around unsafe hardware shims
 
@@ -60,13 +59,11 @@ interface PwmOutput     { fn set_duty(percent: Float64) returns Void }
 
 Concrete implementations call into the C bootstrap.
 
-### 4. Controller Modules (Signed)
+### 4. Controller Modules
 
 User logic lives in signed **DMP modules**:
 
 * loaded at boot
-* signature-verified
-* fall back to last-known-good if invalid
 * implement real control loops:
 
   * sensors
@@ -94,10 +91,13 @@ Tasks must not block and must explicitly yield.
 A helper in `std.controller` simplifies creation of periodic tasks:
 
 ```drift
+let sensor = ...    // HAL-backed AnalogInput
+let pump = ...      // HAL-backed DigitalOutput
+
 std.controller.every(
     PeriodicTaskConfig(period_ticks = 10, priority = Priority.High),
     fn(now: Tick) returns Void {
-        run_loop(now)
+        run_loop(now, sensor, pump)
     }
 )
 ```
@@ -185,13 +185,13 @@ This model balances safety, transparency, and embedded practicality.
 
 Early design stage.
 Compiler and runtime integration still evolving.
-The project will track Drift language features as they solidify.
+The project will track [Drift language](https://github.com/slisznia/drift) features as they solidify.
 
 ---
 
 ## Related documents
 
 * **drift-controller-os-overview.md** — high-level OS whitepaper
-* (future) **chapter: controller runtime** — spec-level documentation
+* **Drift language** — https://github.com/slisznia/drift
 
 ---
